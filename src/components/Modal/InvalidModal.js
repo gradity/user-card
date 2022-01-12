@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-const InvalidModal = ({ isInvalid }) => {
-  const [show, setShow] = useState(isInvalid);
+const InvalidModal = ({ show, errorMessage, onCloseModal }) => {
+  const closeModalHandler = () => onCloseModal();
 
   return (
     <Modal show={show} backdrop="static">
       <Modal.Header>
-        <Modal.Title>Invalid input</Modal.Title>
+        <Modal.Title>Invalid!</Modal.Title>
       </Modal.Header>
-      <Modal.Body>Name and age cannot be empty</Modal.Body>
+      <Modal.Body>{errorMessage}</Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" onClick={() => setShow(false)}>
+        <Button variant="primary" onClick={closeModalHandler}>
           Got it!
         </Button>
       </Modal.Footer>

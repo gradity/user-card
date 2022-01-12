@@ -10,7 +10,8 @@ import InvalidModal from './components/Modal/InvalidModal';
 import './style.css';
 
 export default function App() {
-  const [invalid, setInvalid] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [users, setUsers] = useState([
     {
       name: 'Digby',
@@ -29,11 +30,16 @@ export default function App() {
 
   return (
     <Container>
-      <InvalidModal isInvalid={invalid} />
+      <InvalidModal
+        show={showModal}
+        onCloseModal={() => setShowModal(false)}
+        errorMessage={errorMessage}
+      />
       <Stack gap={3}>
         <AddUser
           onAddUser={AddUserHandler}
-          onInvalidInput={(isInvalid) => setInvalid(isInvalid)}
+          onInvalidInput={() => setShowModal(true)}
+          onErrorMessage={(err) => setErrorMessage(err)}
         />
 
         <UserList users={users} />

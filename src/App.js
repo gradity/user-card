@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import Container from 'react-bootstrap/Container';
 import Stack from 'react-bootstrap/Stack';
@@ -29,7 +29,7 @@ export default function App() {
   };
 
   return (
-    <Container>
+    <Container fluid="md">
       <InvalidModal
         show={showModal}
         onCloseModal={() => setShowModal(false)}

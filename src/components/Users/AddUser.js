@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import Form from 'react-bootstrap/Form';
+import Stack from 'react-bootstrap/Stack';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 
@@ -24,20 +25,20 @@ const AddUser = ({ onAddUser, onInvalidInput, onErrorMessage }) => {
   const formSubmitHandler = (event) => {
     event.preventDefault();
 
-    if (name.length === 0 && age.length === 0) {
+    if (name.trim().length === 0 && age < 1) {
       setNameInvalid(true);
       setAgeInvalid(true);
-      onErrorMessage('Name and age cannot be empty');
+      onErrorMessage('Invalid value for name and/or age');
       onInvalidInput();
       return;
-    } else if (name.length === 0) {
+    } else if (name.trim().length === 0) {
       setNameInvalid(true);
       onErrorMessage('Name cannot be empty');
       onInvalidInput();
       return;
-    } else if (age.length === 0) {
+    } else if (+age < 1) {
       setAgeInvalid(true);
-      onErrorMessage('Age cannot be empty');
+      onErrorMessage('Invalid age value');
       onInvalidInput();
       return;
     }
@@ -57,7 +58,35 @@ const AddUser = ({ onAddUser, onInvalidInput, onErrorMessage }) => {
 
   return (
     <Form onSubmit={formSubmitHandler}>
-      <InputGroup>
+      <Form.Group className="mb-3">
+        <Form.Control
+          type="text"
+          onChange={nameChangeHandler}
+          placeholder="Name"
+          value={name}
+          isInvalid={nameInvalid}
+        />
+      </Form.Group>
+      <Form.Group className="mb-3">
+        <Form.Control
+          type="number"
+          onChange={ageChangeHandler}
+          placeholder="Age"
+          value={age}
+          isInvalid={ageInvalid}
+        />
+      </Form.Group>
+      <Stack direction="horizontal" gap={3}>
+        <Button variant="primary" type="submit">
+          Add
+        </Button>
+        <div className="vr"></div>
+        <Button variant="outline-danger" onClick={resetHandler} ms-auto>
+          Reset
+        </Button>
+      </Stack>
+
+      {/* <InputGroup>
         <Form.Control
           type="text"
           onChange={nameChangeHandler}
@@ -80,7 +109,7 @@ const AddUser = ({ onAddUser, onInvalidInput, onErrorMessage }) => {
         <Button variant="outline-danger" onClick={resetHandler}>
           Reset
         </Button>
-      </InputGroup>
+      </InputGroup> */}
     </Form>
   );
 };

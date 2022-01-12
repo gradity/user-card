@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-const AddUser = ({ onAddUser }) => {
+const AddUser = ({ onAddUser, onInvalidInput }) => {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [nameInvalid, setNameInvalid] = useState(false);
@@ -24,8 +24,8 @@ const AddUser = ({ onAddUser }) => {
   const formSubmitHandler = (event) => {
     event.preventDefault();
 
-    if (name.length === 0) {
-      setNameInvalid(true);
+    if (name.length === 0 || age.length === 0) {
+      onInvalidInput(true);
       return;
     }
 

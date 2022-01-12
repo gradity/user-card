@@ -5,10 +5,12 @@ import Stack from 'react-bootstrap/Stack';
 
 import AddUser from './components/Users/AddUser';
 import UserList from './components/Users/UserList';
+import InvalidModal from './components/Modal/InvalidModal';
 
 import './style.css';
 
 export default function App() {
+  const [invalid, setInvalid] = useState(false);
   const [users, setUsers] = useState([
     {
       name: 'Digby',
@@ -27,8 +29,12 @@ export default function App() {
 
   return (
     <Container>
+      <InvalidModal isInvalid={invalid} />
       <Stack gap={3}>
-        <AddUser onAddUser={AddUserHandler} />
+        <AddUser
+          onAddUser={AddUserHandler}
+          onInvalidInput={(isInvalid) => setInvalid(isInvalid)}
+        />
 
         <UserList users={users} />
       </Stack>

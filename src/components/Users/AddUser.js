@@ -6,7 +6,7 @@ import Stack from 'react-bootstrap/Stack';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-const AddUser = ({ onAddUser, onInvalidInput, onErrorMessage }) => {
+const AddUser = ({ onAddUser, onError }) => {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [nameInvalid, setNameInvalid] = useState(false);
@@ -28,18 +28,15 @@ const AddUser = ({ onAddUser, onInvalidInput, onErrorMessage }) => {
     if (name.trim().length === 0 && age < 1) {
       setNameInvalid(true);
       setAgeInvalid(true);
-      onErrorMessage('Invalid value for name and/or age');
-      onInvalidInput();
+      onError('Invalid value for name and/or age');
       return;
     } else if (name.trim().length === 0) {
       setNameInvalid(true);
-      onErrorMessage('Name cannot be empty');
-      onInvalidInput();
+      onError('Name cannot be empty');
       return;
     } else if (+age < 1) {
       setAgeInvalid(true);
-      onErrorMessage('Invalid age value');
-      onInvalidInput();
+      onError('Invalid age value');
       return;
     }
 

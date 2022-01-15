@@ -28,6 +28,11 @@ export default function App() {
     });
   };
 
+  const errorHandler = (message) => {
+    setShowModal(true);
+    setErrorMessage(message);
+  };
+
   return (
     <Container fluid="md">
       <InvalidModal
@@ -38,8 +43,9 @@ export default function App() {
       <Stack gap={3}>
         <AddUser
           onAddUser={AddUserHandler}
-          onInvalidInput={() => setShowModal(true)}
-          onErrorMessage={(err) => setErrorMessage(err)}
+          // onInvalidInput={() => setShowModal(true)}
+          // onErrorMessage={(err) => setErrorMessage(err)}
+          onError={errorHandler}
         />
 
         <UserList users={users} />
